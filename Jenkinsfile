@@ -27,6 +27,18 @@ pipeline {
         }
       }
     }
+    
+    stage('DeployToProduction') {
+            when {
+                branch 'master'
+            }
+            steps {
+                input 'Deploy to Production?'
+                milestone(1)
+                //implement Kubernetes deployment here
+            }
+        }
+    
     stage('Remove Unused docker image') {
       steps{
         sh "docker rmi $registry:$BUILD_NUMBER"
